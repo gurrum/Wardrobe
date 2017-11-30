@@ -9,6 +9,7 @@ import java.util.List;
 import communityWardrobe.Controller.model.*;
 import communityWardrobe.tiacloud.service.NGORegistrationService;
 import communityWardrobe.tiacloud.service.UserService;
+import communityWardrobe.tiacloud.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -122,7 +123,7 @@ public class PLCAPI {
 		}
 
 	@Autowired
-	private UserService userService;
+	private UserService userService = new UserServiceImpl();
 
 	@RequestMapping(value = "/userInfo", method = RequestMethod.POST)
 	public ResponseEntity<LoggedInUserDTO> loginUser(@RequestBody UserLoginDTO userLoginDTO){

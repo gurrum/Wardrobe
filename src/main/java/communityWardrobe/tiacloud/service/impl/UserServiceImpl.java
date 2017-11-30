@@ -17,8 +17,13 @@ public class UserServiceImpl implements UserService{
   @Autowired
   private UserRepository userRepository;
 
+  public UserServiceImpl() {
+    //generateUserData();
+  }
+
   @Override
   public LoggedInUserDTO loginUser(UserLoginDTO userLoginDTO) {
+    //generateUserData();
     UserEntity userEntity = userRepository.findByuserName(userLoginDTO.getUserName());
     if(userEntity!=null){
       if(userEntity.getPassword().equalsIgnoreCase(userLoginDTO.getPassword())){
@@ -33,4 +38,14 @@ public class UserServiceImpl implements UserService{
     }
     return null;
   }
+
+  void generateUserData(){
+    userRepository.save(new UserEntity("admin", "adminuser", "admin@akamai.com", "ADMIN", "welcome"));
+    userRepository.save(new UserEntity("ashish", "ashishkumar", "ashish@akamai.com", "AKA_VOLUNTEER", "welcome"));
+    userRepository.save(new UserEntity("aasha", "aashav", "aasha@akamai.com", "AKA_VOLUNTEER", "welcome"));
+    userRepository.save(new UserEntity("bisu", "biswajeetjena", "bisu@akamai.com", "AKA_VOLUNTEER", "welcome"));
+    userRepository.save(new UserEntity("gurum", "gurumnagaraj", "gurum@akamai.com", "AKA_VOLUNTEER", "welcome"));
+  }
+
+
 }
