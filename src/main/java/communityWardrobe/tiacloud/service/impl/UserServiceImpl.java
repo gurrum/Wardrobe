@@ -2,7 +2,9 @@ package communityWardrobe.tiacloud.service.impl;
 
 import communityWardrobe.Controller.model.LoggedInUserDTO;
 import communityWardrobe.Controller.model.UserLoginDTO;
+import communityWardrobe.tiacloud.model.entity.NGOEntity;
 import communityWardrobe.tiacloud.model.entity.UserEntity;
+import communityWardrobe.tiacloud.repository.NGORepository;
 import communityWardrobe.tiacloud.repository.UserRepository;
 import communityWardrobe.tiacloud.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ public class UserServiceImpl implements UserService{
 
   @Autowired
   private UserRepository userRepository;
+  @Autowired
+  private NGORepository ngoRepository;
 
   public UserServiceImpl() {
     //generateUserData();
@@ -32,6 +36,10 @@ public class UserServiceImpl implements UserService{
         loggedInUserDTO.setFullName(userEntity.getFullName());
         loggedInUserDTO.setEmail(userEntity.getEmail());
         loggedInUserDTO.setUserType(userEntity.getUserType());
+        if(userEntity.getUserType().equalsIgnoreCase("NGO")){
+          NGOEntity ngoEntity = ngoRepository.findByname(userEntity.getUserName());
+          loggedInUserDTO.setAddress(ngoEntity.getAddress());
+        }
 
         return loggedInUserDTO;
       }

@@ -5,6 +5,7 @@ public class LoggedInUserDTO {
   String fullName;
   String email;
   String userType;
+  String address;
 
   public String getUserName() {
     return userName;
@@ -36,5 +37,13 @@ public class LoggedInUserDTO {
 
   public void setUserType(String userType) {
     this.userType = userType;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
   }
 }
