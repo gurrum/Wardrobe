@@ -6,26 +6,17 @@ import java.net.URLEncoder;
 import java.util.List;
 
 
-
-
-
-
-
+import communityWardrobe.Controller.model.*;
+import communityWardrobe.tiacloud.service.NGORegistrationService;
+import communityWardrobe.tiacloud.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import communityWardrobe.Controller.model.InventoryDTO;
-import communityWardrobe.Controller.model.InventoryResponseDTO;
 import communityWardrobe.tiacloud.exception.ApplicationException;
 import communityWardrobe.tiacloud.model.res.FileListMessage;
 import communityWardrobe.tiacloud.model.res.FileUploadMessage;
@@ -109,6 +100,36 @@ public class PLCAPI {
 		inventoryService.postInventories(inventories);
 		HttpHeaders headers = new HttpHeaders();
 		return new ResponseEntity<>(headers, HttpStatus.ACCEPTED);
+	}
+
+		@Autowired
+		private NGORegistrationService ngoRegistrationService;
+
+		@RequestMapping(value = "/ngodetail/{userName}", method = RequestMethod.GET)
+		@ResponseBody
+		public ResponseEntity<NGORegistrationDTO> getNGO(@PathVariable String userName){
+			NGORegistrationDTO response = ngoRegistrationService.getNGORegistration(userName);
+			HttpHeaders headers = new HttpHeaders();
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		}
+
+		@RequestMapping(value = "/ngodetail", method = RequestMethod.POST)
+		public ResponseEntity registerNGO(@RequestBody NGORegistrationDTO ngoRegistration){
+
+			ngoRegistrationService.registerNGO(ngoRegistration);
+			HttpHeaders headers = new HttpHeaders();
+			return new ResponseEntity<>(headers, HttpStatus.ACCEPTED);
+		}
+
+	@Autowired
+	private UserService userService;
+
+	@RequestMapping(value = "/userInfo", method = RequestMethod.POST)
+	public ResponseEntity<LoggedInUserDTO> loginUser(@RequestBody UserLoginDTO userLoginDTO){
+
+		userService.loginUser(userLoginDTO);
+		HttpHeaders headers = new HttpHeaders();
+		return new ResponseEntity<LoggedInUserDTO>(headers, HttpStatus.ACCEPTED);
 	}
 	
 	
