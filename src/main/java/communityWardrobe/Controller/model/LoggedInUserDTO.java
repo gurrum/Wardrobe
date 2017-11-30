@@ -7,6 +7,9 @@ public class LoggedInUserDTO {
   String userType;
   String address;
 
+  public LoggedInUserDTO() {
+  }
+
   public String getUserName() {
     return userName;
   }

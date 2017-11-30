@@ -1,5 +1,25 @@
 package communityWardrobe.Controller.model;
 
 public class UserAddressDTO {
-  //public user
+  private String userName;
+  private String address;
+
+  public UserAddressDTO() {
+  }
+
+  public String getUserName() {
+    return userName;
+  }
+
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
 }

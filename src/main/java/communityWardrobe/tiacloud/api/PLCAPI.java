@@ -7,8 +7,7 @@ import java.util.List;
 
 
 import communityWardrobe.Controller.model.*;
-import communityWardrobe.tiacloud.service.NGORegistrationService;
-import communityWardrobe.tiacloud.service.UserService;
+import communityWardrobe.tiacloud.service.*;
 import communityWardrobe.tiacloud.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -23,8 +22,6 @@ import communityWardrobe.tiacloud.model.res.FileListMessage;
 import communityWardrobe.tiacloud.model.res.FileUploadMessage;
 import communityWardrobe.tiacloud.model.vo.FileData;
 import communityWardrobe.tiacloud.model.vo.FileInfo;
-import communityWardrobe.tiacloud.service.InventoryService;
-import communityWardrobe.tiacloud.service.PlcService;
 
 @RestController
 @RequestMapping("/communityWardrobe/")
@@ -132,7 +129,18 @@ public class PLCAPI {
 		HttpHeaders headers = new HttpHeaders();
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
-	
+
+	@Autowired
+	OrderDetailService orderDetailService;
+
+	@RequestMapping(value = "/orderDetails", method = RequestMethod.POST)
+	public ResponseEntity createOrder(@RequestBody OrderDTO orderDTO){
+
+		orderDetailService.createOrder(orderDTO);
+		HttpHeaders headers = new HttpHeaders();
+		return new ResponseEntity<>(headers, HttpStatus.ACCEPTED);
+	}
+
 	
 	
 	
