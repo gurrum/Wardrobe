@@ -1,9 +1,6 @@
 package communityWardrobe.tiacloud.service.impl;
 
-import communityWardrobe.Controller.model.InventoryDetailsDTO;
-import communityWardrobe.Controller.model.InventoryOrderDetailsDTO;
-import communityWardrobe.Controller.model.OrderDTO;
-import communityWardrobe.Controller.model.UserAddressDTO;
+import communityWardrobe.Controller.model.*;
 import communityWardrobe.tiacloud.model.entity.OrderDetailEntity;
 import communityWardrobe.tiacloud.model.entity.OrderEntity;
 import communityWardrobe.tiacloud.repository.OrderDetailRepository;
@@ -39,9 +36,9 @@ public class OrderDetailServiceImpl implements OrderDetailService {
       OrderDetailEntity orderDetailEntity = new OrderDetailEntity();
       orderDetailEntity.setCategory(inventoryOrderDetailsDTO.getCategory());
       orderDetailEntity.setOrderId(orderCreated.getOrderId());
-      orderDetailEntity.setQuantity(inventoryOrderDetailsDTO.getInventoryDetailsDTO().getQuantity());
-      orderDetailEntity.setSize(inventoryOrderDetailsDTO.getInventoryDetailsDTO().getSize());
-      orderDetailEntity.setType(inventoryOrderDetailsDTO.getInventoryDetailsDTO().getType());
+      orderDetailEntity.setQuantity(inventoryOrderDetailsDTO.getInventoryDetailsCopyDTO().getQuantity());
+      orderDetailEntity.setSize(inventoryOrderDetailsDTO.getInventoryDetailsCopyDTO().getSize());
+      orderDetailEntity.setType(inventoryOrderDetailsDTO.getInventoryDetailsCopyDTO().getType());
       orderDetailRepository.save(orderDetailEntity);
 
     }
@@ -65,11 +62,11 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         InventoryOrderDetailsDTO inventoryOrderDetailsDTO = new InventoryOrderDetailsDTO();
         inventoryOrderDetailsDTO.setCategory(orderDetailEntity.getCategory());
 
-        InventoryDetailsDTO inventoryDetailsDTO = new InventoryDetailsDTO();
-        inventoryDetailsDTO.setQuantity(orderDetailEntity.getQuantity());
-        inventoryDetailsDTO.setSize(orderDetailEntity.getSize());
-        inventoryDetailsDTO.setType(orderDetailEntity.getType());
-        inventoryOrderDetailsDTO.setInventoryDetailsDTO(inventoryDetailsDTO);
+        InventoryDetailsCopyDTO inventoryDetailsCopyDTO = new InventoryDetailsCopyDTO();
+        inventoryDetailsCopyDTO.setQuantity(orderDetailEntity.getQuantity());
+        inventoryDetailsCopyDTO.setSize(orderDetailEntity.getSize());
+        inventoryDetailsCopyDTO.setType(orderDetailEntity.getType());
+        inventoryOrderDetailsDTO.setInventoryDetailsCopyDTO(inventoryDetailsCopyDTO);
 
         inventoryOrderDetailsDTOList.add(inventoryOrderDetailsDTO);
       }
