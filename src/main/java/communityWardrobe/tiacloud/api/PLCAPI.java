@@ -128,9 +128,9 @@ public class PLCAPI {
 	@RequestMapping(value = "/userInfo", method = RequestMethod.POST)
 	public ResponseEntity<LoggedInUserDTO> loginUser(@RequestBody UserLoginDTO userLoginDTO){
 
-		userService.loginUser(userLoginDTO);
+		LoggedInUserDTO response = userService.loginUser(userLoginDTO);
 		HttpHeaders headers = new HttpHeaders();
-		return new ResponseEntity<LoggedInUserDTO>(headers, HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
 	
