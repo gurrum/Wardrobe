@@ -12,4 +12,8 @@ import java.util.List;
 @Transactional(propagation = Propagation.MANDATORY)
 public interface OrderDetailRepository extends CrudRepository<OrderDetailEntity, Integer> {
   OrderDetailEntity findByOId(Integer oId);
+
+  List<OrderDetailEntity> findByOrderId(Integer orderId);
+
+
 }

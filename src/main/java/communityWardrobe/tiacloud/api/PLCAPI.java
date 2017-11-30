@@ -141,6 +141,14 @@ public class PLCAPI {
 		return new ResponseEntity<>(headers, HttpStatus.ACCEPTED);
 	}
 
+	@RequestMapping(value = "/orderDetails/{orderId}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<OrderDTO> getOrder(@PathVariable Integer orderId){
+		OrderDTO response = orderDetailService.getOrder(orderId);
+		HttpHeaders headers = new HttpHeaders();
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
 	
 	
 	
