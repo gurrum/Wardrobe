@@ -76,4 +76,37 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     }
     return null;
   }
+
+  @Override
+  public OrderDTO getOrder(String userName) {
+    List<OrderEntity> orderEntities = orderRepository.findByUserName(userName);
+    OrderEntity orderEntity = orderEntities.get(0);
+    if(orderEntity !=null) {
+      List<OrderDetailEntity> orderDetailEntityList = orderDetailRepository.findByOrderId(orderEntity.getOrderId());
+      OrderDTO orderDTO = new OrderDTO();
+
+      UserAddressDTO userAddressDTO = new UserAddressDTO();
+      userAddressDTO.setUserName(orderEntity.getUserName());
+      userAddressDTO.setAddress(orderEntity.getAddress());
+      orderDTO.setUserAddressDTO(userAddressDTO);
+      List<InventoryOrderDetailsDTO> inventoryOrderDetailsDTOList = new ArrayList<>();
+
+      for (OrderDetailEntity orderDetailEntity : orderDetailEntityList) {
+        InventoryOrderDetailsDTO inventoryOrderDetailsDTO = new InventoryOrderDetailsDTO();
+        inventoryOrderDetailsDTO.setCategory(orderDetailEntity.getCategory());
+
+        InventoryDetailsCopyDTO inventoryDetailsCopyDTO = new InventoryDetailsCopyDTO();
+        inventoryDetailsCopyDTO.setQuantity(orderDetailEntity.getQuantity());
+        inventoryDetailsCopyDTO.setSize(orderDetailEntity.getSize());
+        inventoryDetailsCopyDTO.setType(orderDetailEntity.getType());
+        inventoryOrderDetailsDTO.setInventoryDetailsCopyDTO(inventoryDetailsCopyDTO);
+
+        inventoryOrderDetailsDTOList.add(inventoryOrderDetailsDTO);
+      }
+
+      orderDTO.setInventoryOrderDetailsDTOList(inventoryOrderDetailsDTOList);
+      return orderDTO;
+    }
+    return null;
+  }
 }

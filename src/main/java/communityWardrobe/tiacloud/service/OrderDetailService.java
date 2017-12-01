@@ -8,6 +8,6 @@ public interface OrderDetailService {
 
   OrderDTO getOrder(Integer orderId);
 
-  //OrderDTO getOrder(String userName);
+  OrderDTO getOrder(String userName);
 
 }
